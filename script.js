@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const acceleration = event.accelerationIncludingGravity;
 
         // Eğer hareket yoksa sabitlik durumu kontrol edilir
-        if (Math.abs(acceleration.x) < 0.2 && Math.abs(acceleration.y) < 0.2 && Math.abs(acceleration.z) < 0.2) {
+        if (Math.abs(acceleration.x) < 2 && Math.abs(acceleration.y) < 2 && Math.abs(acceleration.z) < 2) {
             if (!isStable) {
                 // Sabitlik başladı
                 isStable = true;

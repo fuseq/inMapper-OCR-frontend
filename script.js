@@ -2,10 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('camera');
     const canvas = document.getElementById('canvas');
     const statusText = document.getElementById('status');
-
-    let isStable = false;
-    let stableStartTime = null;
-    const stableThreshold = 1000;  // 1 saniye boyunca sabit olma süresi
+    const captureButton = document.getElementById('capture-button'); // Get the button element
 
     // Kamera başlat
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -16,27 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    // Telefonun sabit olup olmadığını kontrol et
-    window.addEventListener('devicemotion', (event) => {
-        const acceleration = event.accelerationIncludingGravity;
-
-        // Eğer hareket yoksa sabitlik durumu kontrol edilir
-        if (Math.abs(acceleration.x) < 2 && Math.abs(acceleration.y) < 2 && Math.abs(acceleration.z) < 2) {
-            if (!isStable) {
-                // Sabitlik başladı
-                isStable = true;
-                stableStartTime = Date.now();
-            } else if (Date.now() - stableStartTime >= stableThreshold) {
-                // Sabitlik süresi yeterliyse fotoğraf çek
-                takePictureAndSend();
-                statusText.innerText = "Fotoğraf çekildi!";
-            }
-        } else {
-            // Hareket varsa sabitlik durumu sıfırlanır
-            isStable = false;
-            stableStartTime = null;
-            statusText.innerText = "Kamerayı sabit tutun...";
-        }
+    // Butona tıklandığında fotoğraf çek
+    captureButton.addEventListener('click', () => {
+        takePictureAndSend();
+        statusText.innerText = "Fotoğraf çekildi!";
     });
 
     function takePictureAndSend() {

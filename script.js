@@ -2,8 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('camera');
     const canvas = document.getElementById('canvas');
     const statusText = document.getElementById('status');
-    const errorMessage = document.getElementById('error-message'); // Get the error message element
-    const captureButton = document.getElementById('capture-button');
+    const captureButton = document.getElementById('capture-button'); // Get the button element
 
     // Kamera başlat
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Butona tıklandığında fotoğraf çek
     captureButton.addEventListener('click', () => {
-        errorMessage.innerText = ""; // Clear previous error message
         takePictureAndSend();
         statusText.innerText = "Fotoğraf çekildi!";
     });
@@ -36,18 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 body: formData
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Sunucudan yanıt alınamadı.'); // Throw error if response is not ok
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 alert(`En iyi eşleşen logo: ${data.best_match}, Skor: ${data.score}`);
             })
             .catch(error => {
                 console.error('Error:', error);
-                errorMessage.innerText = 'Bir hata oluştu: ' + error.message; // Display error message below status
+                alert('Bir hata oluştu.');
             });
         });
     }

@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 stableTimer = setTimeout(() => {
                     takePictureAndSend();
                     statusText.innerText = "Fotoğraf çekildi!";
-                }, 3000); // 2 saniye boyunca sabitse fotoğraf çek
+                }, 2000); // 2 saniye boyunca sabitse fotoğraf çek
             }
         } else {
             isStable = false;

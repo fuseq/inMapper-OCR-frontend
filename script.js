@@ -55,12 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const { acceleration, rotationRate } = event;
 
         // Belirli bir threshold altında hızlanma ve dönme varsa cihaz sabittir
-        const isDeviceStable = Math.abs(acceleration.x) < 0.1 && 
-                               Math.abs(acceleration.y) < 0.1 && 
-                               Math.abs(acceleration.z) < 0.1 &&
-                               Math.abs(rotationRate.alpha) < 0.1 &&
-                               Math.abs(rotationRate.beta) < 0.1 &&
-                               Math.abs(rotationRate.gamma) < 0.1;
+        const isDeviceStable = Math.abs(acceleration.x) < 0.5 && 
+                               Math.abs(acceleration.y) < 0.5 && 
+                               Math.abs(acceleration.z) < 0.5 &&
+                               Math.abs(rotationRate.alpha) < 0.5 &&
+                               Math.abs(rotationRate.beta) < 0.5 &&
+                               Math.abs(rotationRate.gamma) < 0.5;
 
         if (isDeviceStable) {
             if (!isStable) {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 stableTimer = setTimeout(() => {
                     takePictureAndSend();
                     statusText.innerText = "Fotoğraf çekildi!";
-                }, 2000); // 2 saniye boyunca sabitse fotoğraf çek
+                }, 1000); // 2 saniye boyunca sabitse fotoğraf çek
             }
         } else {
             isStable = false;

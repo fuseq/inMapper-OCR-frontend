@@ -55,12 +55,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const { acceleration, rotationRate } = event;
 
         // Belirli bir threshold altında hızlanma ve dönme varsa cihaz sabittir
-        const isDeviceStable = Math.abs(acceleration.x) < 0.5 && 
-                               Math.abs(acceleration.y) < 0.5 && 
-                               Math.abs(acceleration.z) < 0.5 &&
-                               Math.abs(rotationRate.alpha) < 0.5 &&
-                               Math.abs(rotationRate.beta) < 0.5 &&
-                               Math.abs(rotationRate.gamma) < 0.5;
+        const isDeviceStable = Math.abs(acceleration.x) < 10 && 
+                               Math.abs(acceleration.y) < 10 && 
+                               Math.abs(acceleration.z) < 10 &&
+                               Math.abs(rotationRate.alpha) < 10 &&
+                               Math.abs(rotationRate.beta) < 10 &&
+                               Math.abs(rotationRate.gamma) < 10;
 
         if (isDeviceStable) {
             if (!isStable) {

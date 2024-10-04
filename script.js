@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('canvas');
     const statusText = document.getElementById('status');
     const overlay = document.getElementById('overlay');
+    const accelerationDisplay = document.getElementById('acceleration-display');
     let stableTimer = null; // Sabitlik kontrolü için zamanlayıcı
     let isStable = false; // Telefonun sabit olup olmadığını izler
 
@@ -52,7 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cihaz sabit kaldığında fotoğrafı çek
     function checkStability(event) {
-        const { acceleration, rotationRate } = event;
+        const { acceleration} = event;
+
+        // Hızlanma değerlerini ekrana yaz
+        accelerationDisplay.innerText = `X: ${acceleration.x.toFixed(2)}, Y: ${acceleration.y.toFixed(2)}, Z: ${acceleration.z.toFixed(2)}`;
 
         // Belirli bir threshold altında hızlanma ve dönme varsa cihaz sabittir
         const isDeviceStable = Math.abs(acceleration.x) < 10 && 

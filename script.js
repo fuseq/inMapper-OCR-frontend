@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('camera');
     const canvas = document.getElementById('canvas');
@@ -16,10 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
         path: 'assets/scan.json' // Lottie JSON dosyasının yolu
     });
 
-    // 3 saniye sonra overlay kaybolacak ve kamera işlevi başlayacak
+    // Kamera hemen başlasın (arka kamerayı kullan)
+    startCamera();
+
+    // 3 saniye sonra overlay kaybolacak ve sabitlik kontrolü başlayacak
     setTimeout(() => {
         overlay.style.display = 'none';
-        startCamera(); // Overlay kaybolduktan sonra kamera işlevini başlat
+        startStabilityCheck(); // Sabitlik kontrolüne başla
     }, 3000);
 
     // Kamera başlat (arka kamerayı kullan)
@@ -38,6 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Kamera açılırken bir hata oluştu:', error);
                 alert('Arka kameraya erişilemiyor. Lütfen tarayıcı ayarlarını kontrol edin.');
             });
+        }
+    }
+
+    // Sabitlik kontrolüne başla (overlay kaybolduktan sonra çalışır)
+    function startStabilityCheck() {
+        if (window.DeviceMotionEvent) {
+            window.addEventListener('devicemotion', checkStability, true);
         }
     }
 
@@ -65,11 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
             isStable = false;
             clearTimeout(stableTimer); // Cihaz sabit değilse zamanlayıcıyı sıfırla
         }
-    }
-
-    // Hareket sensörünü başlat
-    if (window.DeviceMotionEvent) {
-        window.addEventListener('devicemotion', checkStability, true);
     }
 
     function takePictureAndSend() {

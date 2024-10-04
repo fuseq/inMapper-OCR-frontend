@@ -59,9 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
         accelerationDisplay.innerText = `X: ${acceleration.x.toFixed(2)}, Y: ${acceleration.y.toFixed(2)}, Z: ${acceleration.z.toFixed(2)}`;
 
         // Belirli bir threshold altında hızlanma ve dönme varsa cihaz sabittir
-        const isDeviceStable = Math.abs(acceleration.x) < 2 && 
-                               Math.abs(acceleration.y) < 2 && 
-                               Math.abs(acceleration.z) < 2;
+        const isDeviceStable = Math.abs(acceleration.x) < 0.5 && 
+                               Math.abs(acceleration.y) < 0.5 && 
+                               Math.abs(acceleration.z) < 0.5;
 
         if (isDeviceStable) {
             if (!isStable) {

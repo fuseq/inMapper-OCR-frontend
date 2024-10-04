@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamera ile Logo Karşılaştırma</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Yarı transparan katman -->
+    <div class="overlay" id="overlay">
+        <div class="overlay-content">
+            <div id="lottie-animation"></div> <!-- Lottie animasyonu için konteyner -->
+            <p id="overlay-status">Başlangıç Noktası Olarak Belirlemek İstediğiniz Mağazanın Logosunu Kamera İçerisine Alın ve Telefonu Sabit Tutun</p>
+        </div>
+    </div>
+
+    <div class="camera-container">
+        <video id="camera" autoplay playsinline></video>
+
+    </div>
+
+    <canvas id="canvas" style="display: none;"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>

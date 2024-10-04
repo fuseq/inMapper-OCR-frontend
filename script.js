@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('camera');
     const canvas = document.getElementById('canvas');
@@ -15,18 +16,29 @@ document.addEventListener('DOMContentLoaded', () => {
         path: 'assets/scan.json' // Lottie JSON dosyasının yolu
     });
 
-    // 3 saniye sonra overlay kaybolacak
+    // 3 saniye sonra overlay kaybolacak ve kamera işlevi başlayacak
     setTimeout(() => {
         overlay.style.display = 'none';
+        startCamera(); // Overlay kaybolduktan sonra kamera işlevini başlat
     }, 3000);
 
-    // Kamera başlat
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
+    // Kamera başlat (arka kamerayı kullan)
+    function startCamera() {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({
+                video: {
+                    facingMode: { exact: 'environment' } // Arka kamera kullanımı
+                }
+            })
             .then(stream => {
                 video.srcObject = stream;
                 video.play();
+            })
+            .catch(error => {
+                console.error('Kamera açılırken bir hata oluştu:', error);
+                alert('Arka kameraya erişilemiyor. Lütfen tarayıcı ayarlarını kontrol edin.');
             });
+        }
     }
 
     // Cihaz sabit kaldığında fotoğrafı çek

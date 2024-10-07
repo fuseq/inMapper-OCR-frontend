@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error:', error);
                 progressContainer.style.display = 'none'; // Hide progress bar
                 resultText.innerText = 'Bir hata oluştu: ' + error.message; // Display error message
+                resultModal.style.display = 'block'; // Show modal with results
             });
         });
     }

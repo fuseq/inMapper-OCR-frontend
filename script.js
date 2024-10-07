@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusText = document.getElementById('overlay-status');
     const overlay = document.getElementById('overlay');
     const accelerationDisplay = document.getElementById('acceleration-display');
-    const progressContainer = document.getElementById('progress-container');
+    const resultCard = document.getElementById('result-card');
     const resultModal = document.getElementById('result-modal');
     const resultText = document.getElementById('result-text');
     const closeModal = document.getElementById('close-modal');
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
+    
         progressContainer.style.display = 'block'; // Show progress bar
     
         canvas.toBlob(blob => {
@@ -99,17 +99,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
-                progressContainer.style.display = 'none'; // Hide progress bar
+
     
-                // Update the result text
-                resultText.innerText = `En iyi eşleşen logo: ${data.best_match}, Skor: ${data.score}`;
-                resultModal.style.display = 'block'; // Show modal with results
+                // Update the location name with the best matching logo
+                const locationName = document.getElementById('location-name');
+                locationName.innerText = data.best_match; // Update with best match name
+                resultCard.style.display = 'block'; // Show modal with results
             })
             .catch(error => {
                 console.error('Error:', error);
-                progressContainer.style.display = 'none'; // Hide progress bar
-                resultText.innerText = 'Bir hata oluştu: ' + error.message; // Display error message
-                resultModal.style.display = 'block'; // Show modal with results
+                resultCard.style.display = 'block'; // Show modal with results
             });
         });
     }

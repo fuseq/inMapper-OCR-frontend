@@ -30,29 +30,27 @@
         </svg>
     </div>
 
-    <div id="result-modal" style="display: none;">
-        <div class="card">
-            <div class="card-header">
-                <img
-                    src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80"
-                    alt="card-image"
-                    class="card-image"
-                />
+    <div class="card" id="result-card">
+        <div class="card-header">
+            <img
+                src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80"
+                alt="card-image"
+                class="card-image"
+            />
+        </div>
+        <div class="card-body">
+            <div class="card-title">
+                <span class="location-description">
+                    Lokasyonunuz <strong class="location-name" id="location-name">Central Park</strong> olarak belirlendi.
+                </span>
             </div>
-            <div class="card-body">
-                <div class="card-title">
-                    <span class="location-description">
-                        Lokasyonunuz <strong class="location-name">Central Park</strong> olarak belirlendi.
-                    </span>
-                </div>
-                <p class="location-description">
-                    Eğer lokasyon doğru ise onaylayınız, değil ise tekrar deneyebilirsiniz.
-                </p>
-            </div>
-            <div class="card-footer">
-                <button class="confirm-button">Onayla</button>
-                <button class="retry-button">Tekrar Dene</button>
-            </div>
+            <p class="location-description">
+                Eğer lokasyon doğru ise onaylayınız, değil ise tekrar deneyebilirsiniz.
+            </p>
+        </div>
+        <div class="card-footer">
+            <button class="confirm-button">Onayla</button>
+            <button class="retry-button">Tekrar Dene</button>
         </div>
     </div>
 

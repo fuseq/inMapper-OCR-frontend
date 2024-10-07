@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressContainer = document.getElementById('progress-container');
     const resultModal = document.getElementById('result-modal');
     const resultText = document.getElementById('result-text');
+    const resultDetails = document.getElementById('result-details');
     const closeModal = document.getElementById('close-modal');
     
     let stableTimer = null;
@@ -107,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error:', error);
                 resultText.innerText = `Eşleşme Bulunamadı`;
                 progressContainer.style.display = 'none'; // Hide progress bar
+                resultDetails.innerText = `Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.`;
                 resultModal.style.display = 'block'; 
                 alert('Bir hata oluştu: ' + error.message);
             });

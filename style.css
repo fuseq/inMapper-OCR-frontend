@@ -4,7 +4,8 @@
     box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -19,11 +20,13 @@ body, html {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7); /* Yarı transparan arka plan */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Yarı transparan arka plan */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Katmanı ön plana getirir */
+    z-index: 9999;
+    /* Katmanı ön plana getirir */
 }
 
 /* İçerik merkezi */
@@ -32,15 +35,19 @@ body, html {
     flex-direction: column;
     align-items: center;
     text-align: center;
-   
-    width: 80vw; /* Yatayda ekranın %80'ini kaplasın */
+
+    width: 80vw;
+    /* Yatayda ekranın %80'ini kaplasın */
 }
 
 /* Lottie animasyonu alanı */
 #lottie-animation {
-    width: 100%; /* Lottie animasyonu ekranın tamamını yatayda kaplasın */
-    max-width: 500px; /* Geniş ekranlarda en fazla 500px genişlik olsun */
-    height: auto; /* Yükseklik otomatik ayarlansın */
+    width: 100%;
+    /* Lottie animasyonu ekranın tamamını yatayda kaplasın */
+    max-width: 500px;
+    /* Geniş ekranlarda en fazla 500px genişlik olsun */
+    height: auto;
+    /* Yükseklik otomatik ayarlansın */
 }
 
 /* Bilgilendirme yazısı */
@@ -48,9 +55,12 @@ body, html {
     margin-top: 20px;
     color: #fff;
     font-size: 14px;
-    width: 100%; /* Yazıyı daha geniş hale getir */
-    line-height: 1.5; /* Satır yüksekliğini artırarak daha rahat okunabilir yap */
-    text-align: center; /* Yazıyı her iki yana yasla */
+    width: 100%;
+    /* Yazıyı daha geniş hale getir */
+    line-height: 1.5;
+    /* Satır yüksekliğini artırarak daha rahat okunabilir yap */
+    text-align: center;
+    /* Yazıyı her iki yana yasla */
 }
 
 /* Animasyon (loading) */
@@ -65,8 +75,13 @@ body, html {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .camera-container {
@@ -94,6 +109,7 @@ body, html {
     font-size: 16px;
     border-radius: 5px;
 }
+
 #progress-container {
     position: absolute;
     top: 50%;
@@ -109,31 +125,40 @@ body, html {
 }
 
 
-  .card-title {
+.card-title {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 8px;
-  }
-  
-  .location-name {
-    font-size: 16px; /* Başlık boyutu */
-    font-weight: bold; /* Kalın yazı tipi */
-    color: #333; /* Koyu gri renk */
-    text-align: center; /* Ortalanmış metin */
-  }
-  
-  .location-description {
-    font-size: 16px; /* Daha okunabilir boyut */
-    color: #555; /* Daha açık gri renk */
-    line-height: 1.5; /* Satır aralığı */
-    text-align: center; /* Ortalanmış metin */
-    margin-top: 10px; /* Üstte biraz boşluk */
-  }
-  
-  
-  .confirm-button,
-  .retry-button {
+}
+
+.location-name {
+    font-size: 16px;
+    /* Başlık boyutu */
+    font-weight: bold;
+    /* Kalın yazı tipi */
+    color: #333;
+    /* Koyu gri renk */
+    text-align: center;
+    /* Ortalanmış metin */
+}
+
+.location-description {
+    font-size: 16px;
+    /* Daha okunabilir boyut */
+    color: #555;
+    /* Daha açık gri renk */
+    line-height: 1.5;
+    /* Satır aralığı */
+    text-align: center;
+    /* Ortalanmış metin */
+    margin-top: 10px;
+    /* Üstte biraz boşluk */
+}
+
+
+.confirm-button,
+.retry-button {
     width: 48%;
     padding: 12px;
     border: none;
@@ -141,22 +166,22 @@ body, html {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .confirm-button {
+}
+
+.confirm-button {
     background-color: #3b82f6;
     color: white;
-  }
-  
-  .confirm-button:hover {
+}
+
+.confirm-button:hover {
     background-color: #2563eb;
-  }
-  
-  .retry-button {
+}
+
+.retry-button {
     background-color: #f59e0b;
     color: white;
-  }
-  
-  .retry-button:hover {
+}
+
+.retry-button:hover {
     background-color: #d97706;
-  }
+}

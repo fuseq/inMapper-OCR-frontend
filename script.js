@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
         progressContainer.style.display = 'block'; // Show progress bar
     
-        const resultCard = document.getElementById('result-card'); // Burada resultCard'ı tanımlıyoruz
+        const resultCard = document.querySelector('.card'); // Burada .card sınıfı ile element seçiliyor
     
         canvas.toBlob(blob => {
             if (!blob) {

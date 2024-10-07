@@ -4,10 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusText = document.getElementById('overlay-status');
     const overlay = document.getElementById('overlay');
     const accelerationDisplay = document.getElementById('acceleration-display');
-    const resultCard = document.getElementById('result-card');
-    const resultModal = document.getElementById('result-modal');
-    const resultText = document.getElementById('result-text');
-    const closeModal = document.getElementById('close-modal');
     
     let stableTimer = null;
     let isStable = false;
@@ -78,6 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
         progressContainer.style.display = 'block'; // Show progress bar
     
+        const resultCard = document.getElementById('result-card'); // Burada resultCard'ı tanımlıyoruz
+    
         canvas.toBlob(blob => {
             if (!blob) {
                 console.error('Blob oluşturulamadı.');
@@ -99,16 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
-
-    
                 // Update the location name with the best matching logo
                 const locationName = document.getElementById('location-name');
                 locationName.innerText = data.best_match; // Update with best match name
-                resultCard.style.display = 'block'; // Show modal with results
+                resultCard.style.display = 'block'; // Kartı görünür yapıyoruz
             })
             .catch(error => {
                 console.error('Error:', error);
-                resultCard.style.display = 'block'; // Show modal with results
+                resultCard.style.display = 'block'; // Hata durumunda da kart görünür yapılır
             });
         });
     }

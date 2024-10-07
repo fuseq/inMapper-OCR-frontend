@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     progressContainer.style.display = 'none'; // Hide progress bar
                     resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`;
                     resultModal.style.display = 'block'; // Show modal with results
-                    showError();
+                    hideError();
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -119,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     resultDetails.innerText = `Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.`;
                     resultModal.style.display = 'block';
                     showError();
-                    alert('Bir hata oluştu: ' + error.message);
                 });
         });
     }

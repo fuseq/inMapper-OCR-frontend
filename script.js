@@ -71,21 +71,23 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    
+        
         progressContainer.style.display = 'block'; // Show progress bar
-    
-        const resultCard = document.querySelector('.card'); // Burada .card sınıfı ile element seçiliyor
-    
+        
+        const resultCard = document.querySelector('.card'); // Kartı seçiyoruz
+        
+        console.log(resultCard); // Kartın doğru seçilip seçilmediğini kontrol et
+        
         canvas.toBlob(blob => {
             if (!blob) {
                 console.error('Blob oluşturulamadı.');
                 alert('Blob oluşturulamadı.');
                 return;
             }
-    
+        
             const formData = new FormData();
             formData.append('image', blob, 'snapshot.png');
-    
+        
             fetch('http://192.168.1.107:5000/compare-logo', {
                 method: 'POST',
                 body: formData
@@ -99,8 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 // Update the location name with the best matching logo
                 const locationName = document.getElementById('location-name');
-                locationName.innerText = data.best_match; // Update with best match name
+                locationName.innerText = data.best_match; // En iyi eşleşme ile güncelle
+    
+                console.log("Kart Görünür Yapılıyor");
                 resultCard.style.display = 'block'; // Kartı görünür yapıyoruz
+    
+                console.log("Kartın display durumu:", resultCard.style.display); // Kartın display durumu nedir?
+    
             })
             .catch(error => {
                 console.error('Error:', error);

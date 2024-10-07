@@ -109,17 +109,19 @@ body, html {
 
 /* Centering the card */
 .card {
-    display: block;
+    display: none;
     width: 70%;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s;
-    position: absolute; /* Use absolute positioning */
-    top: 50%; /* Center vertically */
-    left: 50%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Adjust for element size */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* Kartı üst katmana getir */
+    opacity: 1;    /* Kartın opaklık durumu */
 }
 
 .card-header {

@@ -109,7 +109,7 @@ body, html {
 
 /* Centering the card */
 .card {
-    display: none;
+    display: block;
     width: 70%;
     background-color: #fff;
     border-radius: 12px;

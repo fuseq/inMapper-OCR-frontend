@@ -77,17 +77,17 @@ document.addEventListener('DOMContentLoaded', () => {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         
         progressContainer.style.display = 'block'; // Show progress bar
-
+    
         canvas.toBlob(blob => {
             if (!blob) {
                 console.error('Blob oluşturulamadı.');
                 alert('Blob oluşturulamadı.');
                 return;
             }
-
+    
             const formData = new FormData();
             formData.append('image', blob, 'snapshot.png');
-
+    
             fetch('http://192.168.1.107:5000/compare-logo', {
                 method: 'POST',
                 body: formData
@@ -100,6 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 progressContainer.style.display = 'none'; // Hide progress bar
+    
+                // Update the result text
                 resultText.innerText = `En iyi eşleşen logo: ${data.best_match}, Skor: ${data.score}`;
                 resultModal.style.display = 'block'; // Show modal with results
             })
@@ -111,8 +113,4 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-
-    closeModal.addEventListener('click', () => {
-        resultModal.style.display = 'none'; // Hide modal
-    });
 });

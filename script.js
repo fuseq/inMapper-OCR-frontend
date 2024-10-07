@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusText = document.getElementById('overlay-status');
     const overlay = document.getElementById('overlay');
     const accelerationDisplay = document.getElementById('acceleration-display');
-    const resultCard = document.getElementById('result-card');
+    const progressContainer = document.getElementById('progress-container');
     const resultModal = document.getElementById('result-modal');
     const resultText = document.getElementById('result-text');
     const closeModal = document.getElementById('close-modal');
@@ -75,19 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    
-        progressContainer.style.display = 'block'; // Gösterim için progress bar
-    
+        
+        progressContainer.style.display = 'block'; // Show progress bar
+
         canvas.toBlob(blob => {
             if (!blob) {
                 console.error('Blob oluşturulamadı.');
                 alert('Blob oluşturulamadı.');
                 return;
             }
-    
+
             const formData = new FormData();
             formData.append('image', blob, 'snapshot.png');
-    
+
             fetch('http://192.168.1.107:5000/compare-logo', {
                 method: 'POST',
                 body: formData
@@ -99,26 +99,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
-                const card = document.getElementById('material-card');
-                card.style.display = 'block'; // Kartı görünür yap
-    
-                // Eğer eşleşme varsa, başlığı ve detayları güncelle
-                if (data.matchFound) { // Örnek olarak "matchFound" kontrolü
-                    card.querySelector('.card-title').innerHTML = `Şu an <strong>${data.brandName}</strong> yakınlarındasınız`;
-                    card.querySelector('.card-details').textContent = 'Konumunuz doğru ise onaylayın, değilse tekrar deneyebilirsiniz.';
-                } else {
-                    // Hata durumu için mesajı güncelle
-                    card.querySelector('.card-title').textContent = 'Hiçbir eşleşme bulunamadı';
-                    card.querySelector('.card-details').textContent = 'Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.';
-                }
+                progressContainer.style.display = 'none'; // Hide progress bar
+                resultText.innerText = `En iyi eşleşen logo: ${data.best_match}, Skor: ${data.score}`;
+                resultModal.style.display = 'block'; // Show modal with results
             })
             .catch(error => {
-                const card = document.getElementById('material-card');
-                card.style.display = 'block'; // Hata durumunda kartı görünür yap
-                card.querySelector('.card-title').textContent = 'Bir hata oluştu';
-                card.querySelector('.card-details').textContent = 'Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.';
                 console.error('Error:', error);
+                progressContainer.style.display = 'none'; // Hide progress bar
+                alert('Bir hata oluştu: ' + error.message);
             });
         });
     }
+
+    closeModal.addEventListener('click', () => {
+        resultModal.style.display = 'none'; // Hide modal
+    });
 });

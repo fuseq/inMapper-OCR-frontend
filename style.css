@@ -94,7 +94,7 @@ body, html {
     border-radius: 5px;
 }
 
-.material-card {
+#result-modal {
     width: 70vw; /* Ekranın %70'ini kaplayacak */
     max-width: 600px; /* Maksimum genişlik ayarlanabilir */
     border-radius: 15px;
@@ -107,6 +107,11 @@ body, html {
     transform: translate(-50%, -50%);
     text-align: center;
     font-family: Arial, sans-serif;
+    z-index: 10001;
+    display: none;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    align-items: center;
 }
 
 .card-title {

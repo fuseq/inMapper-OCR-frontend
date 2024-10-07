@@ -1,36 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('camera');
     const canvas = document.getElementById('canvas');
-    const statusText = document.getElementById('status');
+    const statusText = document.getElementById('overlay-status');
     const overlay = document.getElementById('overlay');
     const accelerationDisplay = document.getElementById('acceleration-display');
-    let stableTimer = null; // Sabitlik kontrolü için zamanlayıcı
-    let isStable = false; // Telefonun sabit olup olmadığını izler
+    const progressContainer = document.getElementById('progress-container');
+    const resultModal = document.getElementById('result-modal');
+    const resultText = document.getElementById('result-text');
+    const closeModal = document.getElementById('close-modal');
+    
+    let stableTimer = null;
+    let isStable = false;
 
-    // Lottie animasyonunu başlat
     const lottieAnimation = lottie.loadAnimation({
-        container: document.getElementById('lottie-animation'), // Lottie animasyonunun oynatılacağı yer
-        renderer: 'svg', // SVG olarak render edilir
-        loop: true, // Döngü sürekli oynatılır
-        autoplay: true, // Sayfa yüklenince otomatik başlatılır
-        path: 'assets/scan.json' // Lottie JSON dosyasının yolu
+        container: document.getElementById('lottie-animation'),
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: 'assets/scan.json'
     });
 
-    // Kamera hemen başlasın (arka kamerayı kullan)
     startCamera();
 
-    // 3 saniye sonra overlay kaybolacak ve sabitlik kontrolü başlayacak
     setTimeout(() => {
         overlay.style.display = 'none';
-        startStabilityCheck(); // Sabitlik kontrolüne başla
+        startStabilityCheck();
     }, 3000);
 
-    // Kamera başlat (arka kamerayı kullan)
     function startCamera() {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({
                 video: {
-                    facingMode: { exact: 'environment' } // Arka kamera kullanımı
+                    facingMode: { exact: 'environment' }
                 }
             })
             .then(stream => {
@@ -44,24 +45,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Sabitlik kontrolüne başla (overlay kaybolduktan sonra çalışır)
     function startStabilityCheck() {
         if (window.DeviceMotionEvent) {
             window.addEventListener('devicemotion', checkStability, true);
         }
     }
 
-    // Cihaz sabit kaldığında fotoğrafı çek
     function checkStability(event) {
-        const { acceleration} = event;
-
-        // Hızlanma değerlerini ekrana yaz
+        const { acceleration } = event;
         accelerationDisplay.innerText = `X: ${acceleration.x.toFixed(2)}, Y: ${acceleration.y.toFixed(2)}, Z: ${acceleration.z.toFixed(2)}`;
-
-        // Belirli bir threshold altında hızlanma ve dönme varsa cihaz sabittir
-        const isDeviceStable = Math.abs(acceleration.x) < 0.8 && 
-                               Math.abs(acceleration.y) < 0.8 && 
-                               Math.abs(acceleration.z) < 0.8;
+        const isDeviceStable = Math.abs(acceleration.x) < 0.8 && Math.abs(acceleration.y) < 0.8 && Math.abs(acceleration.z) < 0.8;
 
         if (isDeviceStable) {
             if (!isStable) {
@@ -69,11 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 stableTimer = setTimeout(() => {
                     takePictureAndSend();
                     statusText.innerText = "Fotoğraf çekildi!";
-                }, 2000); // 2 saniye boyunca sabitse fotoğraf çek
+                }, 2000);
             }
         } else {
             isStable = false;
-            clearTimeout(stableTimer); // Cihaz sabit değilse zamanlayıcıyı sıfırla
+            clearTimeout(stableTimer);
         }
     }
 
@@ -82,18 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    
-        // Fotoğrafı backende gönder
+        
+        progressContainer.style.display = 'block'; // Show progress bar
+
         canvas.toBlob(blob => {
             if (!blob) {
                 console.error('Blob oluşturulamadı.');
                 alert('Blob oluşturulamadı.');
                 return;
             }
-    
+
             const formData = new FormData();
             formData.append('image', blob, 'snapshot.png');
-    
+
             fetch('http://192.168.1.107:5000/compare-logo', {
                 method: 'POST',
                 body: formData
@@ -105,12 +99,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
-                alert(`En iyi eşleşen logo: ${data.best_match}, Skor: ${data.score}`);
+                progressContainer.style.display = 'none'; // Hide progress bar
+                resultText.innerText = `En iyi eşleşen logo: ${data.best_match}, Skor: ${data.score}`;
+                resultModal.style.display = 'block'; // Show modal with results
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Bir hata oluştu: ' + error.message);
+                progressContainer.style.display = 'none'; // Hide progress bar
+                resultText.innerText = 'Bir hata oluştu: ' + error.message; // Display error message
             });
         });
     }
+
+    closeModal.addEventListener('click', () => {
+        resultModal.style.display = 'none'; // Hide modal
+    });
 });

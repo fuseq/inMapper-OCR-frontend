@@ -8,33 +8,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="acceleration-display" style="
-    position: absolute; 
-    top: 0; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    background-color: rgba(0, 0, 0, 0.7); 
-    color: white; 
-    padding: 10px; 
-    z-index: 10000;
-    font-size: 18px;
-">
-    X: 0, Y: 0, Z: 0
-</div>
-    <!-- Yarı transparan katman -->
+    <div id="acceleration-display" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); background-color: rgba(0, 0, 0, 0.7); color: white; padding: 10px; z-index: 10000; font-size: 18px;">
+        X: 0, Y: 0, Z: 0
+    </div>
     <div class="overlay" id="overlay">
         <div class="overlay-content">
-            <div id="lottie-animation"></div> <!-- Lottie animasyonu için konteyner -->
+            <div id="lottie-animation"></div>
             <p id="overlay-status">Başlangıç Noktası Olarak Belirlemek İstediğiniz Mağazanın Logosunu Kamera İçerisine Alın ve Telefonu Sabit Tutun</p>
         </div>
     </div>
-
     <div class="camera-container">
         <video id="camera" autoplay playsinline></video>
+    </div>
+    <canvas id="canvas" style="display: none;"></canvas>
 
+    <!-- Circular Progress Bar -->
+    <div id="progress-container" style="display: none;">
+        <svg id="progress" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" stroke="lightgray" stroke-width="10" fill="none"/>
+            <circle id="progress-bar" cx="50" cy="50" r="45" stroke="blue" stroke-width="10" fill="none" stroke-dasharray="283" stroke-dashoffset="283" />
+        </svg>
     </div>
 
-    <canvas id="canvas" style="display: none;"></canvas>
+    <!-- Result Modal -->
+    <div id="result-modal" style="display: none;">
+        <div id="modal-content">
+            <h2>Sonuç</h2>
+            <p id="result-text"></p>
+            <button id="close-modal">Kapat</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

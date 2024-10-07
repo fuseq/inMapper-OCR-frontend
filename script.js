@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => {
                 console.error('Error:', error);
                 progressContainer.style.display = 'none'; // Hide progress bar
+                resultModal.style.display = 'block'; 
                 alert('Bir hata oluştu: ' + error.message);
             });
         });

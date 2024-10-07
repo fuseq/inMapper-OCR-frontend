@@ -107,10 +107,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.json();
                 })
                 .then(data => {
-                    progressContainer.style.display = 'none'; // Hide progress bar
-                    resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`;
-                    resultModal.style.display = 'block'; // Show modal with results
-                    hideError();
+                    progressContainer.style.display = 'none'; // Progress çubuğunu gizle
+                    // Logo kaynağını güncelle
+                    document.getElementById('logo-image').src = `assets/logo_dataset/${data.best_match}.png`;
+                    resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`; // Mesajı güncelle
+                    resultModal.style.display = 'block'; // Sonuçları içeren modali göster
+                    hideError(); // Hata durumunu gizle
                 })
                 .catch(error => {
                     console.error('Error:', error);

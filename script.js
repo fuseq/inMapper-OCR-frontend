@@ -100,11 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 progressContainer.style.display = 'none'; // Hide progress bar
-                resultText.innerText = `En iyi eşleşen logo: ${data.best_match}, Skor: ${data.score}`;
+                resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`;
                 resultModal.style.display = 'block'; // Show modal with results
             })
             .catch(error => {
                 console.error('Error:', error);
+                resultText.innerText = `Eşleşme Bulunamadı`;
                 progressContainer.style.display = 'none'; // Hide progress bar
                 resultModal.style.display = 'block'; 
                 alert('Bir hata oluştu: ' + error.message);

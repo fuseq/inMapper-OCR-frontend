@@ -95,7 +95,7 @@ body, html {
 }
 
 #result-modal {
-    width: 70vw; /* Ekranın %70'ini kaplayacak */
+    width: 90vw; /* Ekranın %70'ini kaplayacak */
     max-width: 600px; /* Maksimum genişlik ayarlanabilir */
     border-radius: 15px;
     overflow: hidden;

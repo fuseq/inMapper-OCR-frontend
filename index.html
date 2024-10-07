@@ -29,28 +29,15 @@
             <circle id="progress-bar" cx="50" cy="50" r="45" stroke="blue" stroke-width="10" fill="none" stroke-dasharray="283" stroke-dashoffset="283" />
         </svg>
     </div>
-
-    <div class="card">
-        <div class="card-header">
-            <img
-                src="https://images.unsplash.com/photo-1629367494173-c78a56567877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=927&q=80"
-                alt="card-image"
-                class="card-image"
-            />
-        </div>
-        <div class="card-body">
-            <div class="card-title">
-                <span class="location-description">
-                    Lokasyonunuz <strong class="location-name" id="location-name">Central Park</strong> olarak belirlendi.
-                </span>
+    <div class="material-card" id="material-card" style="display: none;"> <!-- Başlangıçta gizli -->
+        <img src="https://via.placeholder.com/150" alt="Nike Logo" class="card-image">
+        <div class="card-content">
+            <h3 class="card-title">Şu an <strong>NIKE</strong> yakınlarındasınız</h3>
+            <p class="card-details">Konumunuz doğru ise onaylayın, değilse tekrar deneyebilirsiniz.</p>
+            <div class="button-container">
+                <button class="card-button approve-button">Onayla</button>
+                <button class="card-button retry-button">Tekrar Dene</button>
             </div>
-            <p class="location-description">
-                Eğer lokasyon doğru ise onaylayınız, değil ise tekrar deneyebilirsiniz.
-            </p>
-        </div>
-        <div class="card-footer">
-            <button class="confirm-button">Onayla</button>
-            <button class="retry-button">Tekrar Dene</button>
         </div>
     </div>
 

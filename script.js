@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusText = document.getElementById('overlay-status');
     const overlay = document.getElementById('overlay');
     const accelerationDisplay = document.getElementById('acceleration-display');
+    const resultCard = document.getElementById('result-card');
+    const resultModal = document.getElementById('result-modal');
+    const resultText = document.getElementById('result-text');
+    const closeModal = document.getElementById('close-modal');
     
     let stableTimer = null;
     let isStable = false;
@@ -71,23 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
-        progressContainer.style.display = 'block'; // Show progress bar
-        
-        const resultCard = document.querySelector('.card'); // Kartı seçiyoruz
-        
-        console.log(resultCard); // Kartın doğru seçilip seçilmediğini kontrol et
-        
+    
+        progressContainer.style.display = 'block'; // Gösterim için progress bar
+    
         canvas.toBlob(blob => {
             if (!blob) {
                 console.error('Blob oluşturulamadı.');
                 alert('Blob oluşturulamadı.');
                 return;
             }
-        
+    
             const formData = new FormData();
             formData.append('image', blob, 'snapshot.png');
-        
+    
             fetch('http://192.168.1.107:5000/compare-logo', {
                 method: 'POST',
                 body: formData
@@ -99,19 +99,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
-                // Update the location name with the best matching logo
-                const locationName = document.getElementById('location-name');
-                locationName.innerText = data.best_match; // En iyi eşleşme ile güncelle
+                const card = document.getElementById('material-card');
+                card.style.display = 'block'; // Kartı görünür yap
     
-                console.log("Kart Görünür Yapılıyor");
-                resultCard.style.display = 'block'; // Kartı görünür yapıyoruz
-    
-                console.log("Kartın display durumu:", resultCard.style.display); // Kartın display durumu nedir?
-    
+                // Eğer eşleşme varsa, başlığı ve detayları güncelle
+                if (data.matchFound) { // Örnek olarak "matchFound" kontrolü
+                    card.querySelector('.card-title').innerHTML = `Şu an <strong>${data.brandName}</strong> yakınlarındasınız`;
+                    card.querySelector('.card-details').textContent = 'Konumunuz doğru ise onaylayın, değilse tekrar deneyebilirsiniz.';
+                } else {
+                    // Hata durumu için mesajı güncelle
+                    card.querySelector('.card-title').textContent = 'Hiçbir eşleşme bulunamadı';
+                    card.querySelector('.card-details').textContent = 'Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.';
+                }
             })
             .catch(error => {
+                const card = document.getElementById('material-card');
+                card.style.display = 'block'; // Hata durumunda kartı görünür yap
+                card.querySelector('.card-title').textContent = 'Bir hata oluştu';
+                card.querySelector('.card-details').textContent = 'Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.';
                 console.error('Error:', error);
-                resultCard.style.display = 'block'; // Hata durumunda da kart görünür yapılır
             });
         });
     }

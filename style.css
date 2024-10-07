@@ -108,12 +108,27 @@ body, html {
     text-align: center;
     font-family: Arial, sans-serif;
     z-index: 10001;
-    display: none;
+    display: b;
     transform: translate(-50%, -50%);
     flex-direction: column;
     align-items: center;
 }
+.material-card {
+    display: flex; /* Flexbox kullanarak içindeki öğeleri yerleştirin */
+    flex-direction: column; /* Dikey yönde yerleştir */
+    align-items: center; /* Yatayda ortala */
+    justify-content: center; /* Dikeyde ortala */
+    text-align: center; /* İçerik metnini ortala */
+}
+#logo-image {
+    display: block; /* Görüntüyü başlangıçta göster */
+    margin: 0 auto; /* Yatayda ortala */
+}
 
+#lottie-animation-end {
+    display: none; /* Başlangıçta Lottie animasyonunu gizle */
+    margin: 0 auto; /* Yatayda ortala */
+}
 .card-title {
     font-weight: normal; /* Başlık normal kalınlıkta olacak */
     margin: 10px 0;

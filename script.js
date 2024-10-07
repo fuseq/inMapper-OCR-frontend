@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultText = document.getElementById('result-text');
     const resultDetails = document.getElementById('result-details');
     const closeModal = document.getElementById('close-modal');
-    
+
     let stableTimer = null;
     let isStable = false;
 
@@ -19,6 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
         loop: true,
         autoplay: true,
         path: 'assets/scan.json'
+    });
+    var animation = lottie.loadAnimation({
+        container: document.getElementById('lottie-animation-end'), // Animasyonun yükleneceği div
+        renderer: 'svg', // Render türü
+        loop: true, // Sonsuz döngüde oynat
+        autoplay: true, // Otomatik oynatma
+        path: 'assets/error.json' // Lottie JSON dosyasının yolu
     });
 
     startCamera();
@@ -35,14 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     facingMode: { exact: 'environment' }
                 }
             })
-            .then(stream => {
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch(error => {
-                console.error('Kamera açılırken bir hata oluştu:', error);
-                alert('Arka kameraya erişilemiyor. Lütfen tarayıcı ayarlarını kontrol edin.');
-            });
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.play();
+                })
+                .catch(error => {
+                    console.error('Kamera açılırken bir hata oluştu:', error);
+                    alert('Arka kameraya erişilemiyor. Lütfen tarayıcı ayarlarını kontrol edin.');
+                });
         }
     }
 
@@ -76,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
+
         progressContainer.style.display = 'block'; // Show progress bar
 
         canvas.toBlob(blob => {
@@ -93,29 +100,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 body: formData
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP hatası: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                progressContainer.style.display = 'none'; // Hide progress bar
-                resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`;
-                resultModal.style.display = 'block'; // Show modal with results
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                resultText.innerText = `Eşleşme Bulunamadı`;
-                progressContainer.style.display = 'none'; // Hide progress bar
-                resultDetails.innerText = `Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.`;
-                resultModal.style.display = 'block'; 
-                alert('Bir hata oluştu: ' + error.message);
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP hatası: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    progressContainer.style.display = 'none'; // Hide progress bar
+                    resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`;
+                    resultModal.style.display = 'block'; // Show modal with results
+                    showError();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    resultText.innerText = `Eşleşme Bulunamadı`;
+                    progressContainer.style.display = 'none'; // Hide progress bar
+                    resultDetails.innerText = `Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.`;
+                    resultModal.style.display = 'block';
+                    showError();
+                    alert('Bir hata oluştu: ' + error.message);
+                });
         });
     }
 
     closeModal.addEventListener('click', () => {
         resultModal.style.display = 'none'; // Hide modal
     });
+    function showError() {
+        // Logo resmini gizle
+        document.getElementById('logo-image').style.display = 'none';
+
+        // Lottie animasyonunu göster
+        document.getElementById('lottie-animation-end').style.display = 'block';
+
+        // Lottie animasyonunu başlat
+        animation.play();
+    }
+
+    // Başarı durumunda bu fonksiyonu çağırın
+    function hideError() {
+        // Logo resmini göster
+        document.getElementById('logo-image').style.display = 'block';
+
+        // Lottie animasyonunu gizle
+        document.getElementById('lottie-animation-end').style.display = 'none';
+    }
 });

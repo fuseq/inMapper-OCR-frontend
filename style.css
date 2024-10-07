@@ -122,6 +122,85 @@ body, html {
     align-items: center;
 }
 
-#close-modal {
-    margin-top: 10px;
-}
+
+
+.card {
+    width: 500px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  
+  .card-header {
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .card-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 16px;
+  }
+  
+  .card-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .location-name {
+    font-size: 16px; /* Başlık boyutu */
+    font-weight: bold; /* Kalın yazı tipi */
+    color: #333; /* Koyu gri renk */
+    text-align: center; /* Ortalanmış metin */
+  }
+  
+  .location-description {
+    font-size: 16px; /* Daha okunabilir boyut */
+    color: #555; /* Daha açık gri renk */
+    line-height: 1.5; /* Satır aralığı */
+    text-align: center; /* Ortalanmış metin */
+    margin-top: 10px; /* Üstte biraz boşluk */
+  }
+  
+  .card-footer {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .confirm-button,
+  .retry-button {
+    width: 48%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .confirm-button {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  .confirm-button:hover {
+    background-color: #2563eb;
+  }
+  
+  .retry-button {
+    background-color: #f59e0b;
+    color: white;
+  }
+  
+  .retry-button:hover {
+    background-color: #d97706;
+  }

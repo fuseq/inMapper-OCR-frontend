@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusText = document.getElementById('overlay-status');
     const overlay = document.getElementById('overlay');
     const accelerationDisplay = document.getElementById('acceleration-display');
-    const progressContainer = document.getElementById('progress-container');
     const resultModal = document.getElementById('result-modal');
     const resultText = document.getElementById('result-text');
     const resultDetails = document.getElementById('result-details');
@@ -84,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        progressContainer.style.display = 'block'; // Show progress bar
+        
 
         canvas.toBlob(blob => {
             if (!blob) {
@@ -107,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.json();
                 })
                 .then(data => {
-                    progressContainer.style.display = 'none'; // Progress çubuğunu gizle
+
                     // Logo kaynağını güncelle
                     document.getElementById('logo-image').src = `assets/logo_dataset/${data.best_match}.png`;
                     resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`; // Mesajı güncelle
@@ -117,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .catch(error => {
                     console.error('Error:', error);
                     resultText.innerText = `Eşleşme Bulunamadı`;
-                    progressContainer.style.display = 'none'; // Hide progress bar
+
                     resultDetails.innerText = `Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.`;
                     resultModal.style.display = 'block';
                     showError();

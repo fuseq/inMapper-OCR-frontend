@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showError() {
         // Logo resmini gizle
         document.getElementById('logo-image').style.display = 'none';
-        document.getElementById('progress').style.display = 'none';
+        document.getElementById('progressContainer').style.display = 'none';
 
         // Lottie animasyonunu göster
         document.getElementById('lottie-animation-end').style.display = 'block';
@@ -144,6 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function hideError() {
         // Logo resmini göster
         document.getElementById('logo-image').style.display = 'block';
+        document.getElementById('progressContainer').style.display = 'block';
 
         // Lottie animasyonunu gizle
         document.getElementById('lottie-animation-end').style.display = 'none';

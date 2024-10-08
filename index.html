@@ -29,15 +29,36 @@
             <circle id="progress-bar" cx="50" cy="50" r="45" stroke="blue" stroke-width="10" fill="none" stroke-dasharray="283" stroke-dashoffset="283" />
         </svg>
     </div>
-    <div class="material-card" id="result-modal"> <!-- Başlangıçta gizli -->
-        <img id="logo-image" src="assets/logo_dataset/NIKE.png" alt="Nike Logo">
+    <div class="material-card" id="result-modal">
+        <!-- Başlangıçta gizli -->
+        <img id="logo-image" src="assets/logo_dataset/NIKE.png" alt="Logo">
         <div id="lottie-animation-end" style="width: 150px; height: 150px; display: none;"></div>
         <div class="card-content">
             <h3 class="card-title" id="result-text">Şu an <strong>NIKE</strong> yakınlarındasınız</h3>
-            <p class="card-details" id="result-details">Konumunuz doğru ise onaylayın, değilse tekrar deneyebilirsiniz.</p>
+            <svg
+            id="progress"
+            viewBox="0 0 900 100" 
+            width="100%"
+            height="100px">
+            <g
+                fill="none"
+                stroke-width="7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                transform="translate(5 5) scale(0.9 0.9)">
+                <!-- Genişliği artırmak için x ekseninde path uzunluğunu artırdık -->
+                <path stroke="hsl(0, 0%, 0%)" opacity="0.5" d="M 0 50 1000 50"></path>
+                <path class="progress-bar" stroke="#00ea7d" d="M 0 50 1000 50"></path>
+            </g>
+        </svg>
+            <p class="card-details" id="result-details">Konumunuz yanlış ise tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.</p>
+            
+            <!-- Progress bar -->
+
+    
             <div class="button-container">
-                <button class="card-button approve-button">Onayla</button>
-                <button class="card-button retry-button">Tekrar Dene</button>
+                <button class="card-button approve-button">Tekrar Dene</button>
+                <button class="card-button retry-button">Geri Dön</button>
             </div>
         </div>
     </div>

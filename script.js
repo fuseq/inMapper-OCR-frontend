@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showError() {
         // Logo resmini gizle
         document.getElementById('logo-image').style.display = 'none';
+        document.getElementById('progress').style.display = 'none';
 
         // Lottie animasyonunu göster
         document.getElementById('lottie-animation-end').style.display = 'block';

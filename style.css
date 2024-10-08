@@ -38,7 +38,7 @@ body, html {
 /* Lottie animasyonu alanı */
 #lottie-animation {
     width: 100%; /* Lottie animasyonu ekranın tamamını yatayda kaplasın */
-    max-width: 500px; /* Geniş ekranlarda en fazla 500px genişlik olsun */
+    max-width: 100%; /* Geniş ekranlarda en fazla 500px genişlik olsun */
     height: auto; /* Yükseklik otomatik ayarlansın */
 }
 
@@ -95,7 +95,7 @@ body, html {
 }
 
 #result-modal {
-    width: 90vw; /* Ekranın %70'ini kaplayacak */
+    width: 90vw; 
     max-width: 600px; /* Maksimum genişlik ayarlanabilir */
     border-radius: 15px;
     overflow: hidden;

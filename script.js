@@ -58,6 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function stopStabilityCheck() {
+        window.removeEventListener('devicemotion', checkStability, true);
+    }
+
     function checkStability(event) {
         const { acceleration } = event;
         accelerationDisplay.innerText = `X: ${acceleration.x.toFixed(2)}, Y: ${acceleration.y.toFixed(2)}, Z: ${acceleration.z.toFixed(2)}`;
@@ -83,8 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        
-
         canvas.toBlob(blob => {
             if (!blob) {
                 console.error('Blob oluşturulamadı.');
@@ -106,46 +108,37 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.json();
                 })
                 .then(data => {
-
-                    // Logo kaynağını güncelle
                     document.getElementById('logo-image').src = `assets/logo_dataset/${data.best_match}.png`;
-                    resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`; // Mesajı güncelle
-                    resultModal.style.display = 'block'; // Sonuçları içeren modali göster
-                    hideError(); // Hata durumunu gizle
+                    resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`; 
+                    resultModal.style.display = 'block'; 
+                    hideError(); 
+                    stopStabilityCheck(); // Başarı durumunda stability check'i durdur
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     resultText.innerText = `Eşleşme Bulunamadı`;
-
                     resultDetails.innerText = `Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.`;
                     resultModal.style.display = 'block';
                     showError();
+                    stopStabilityCheck(); // Hata durumunda stability check'i durdur
                 });
         });
     }
 
     closeModal.addEventListener('click', () => {
-        resultModal.style.display = 'none'; // Hide modal
+        resultModal.style.display = 'none';
     });
+
     function showError() {
-        // Logo resmini gizle
         document.getElementById('logo-image').style.display = 'none';
         document.getElementById('progressContainer').style.display = 'none';
-
-        // Lottie animasyonunu göster
         document.getElementById('lottie-animation-end').style.display = 'block';
-
-        // Lottie animasyonunu başlat
         animation.play();
     }
 
-    // Başarı durumunda bu fonksiyonu çağırın
     function hideError() {
-        // Logo resmini göster
         document.getElementById('logo-image').style.display = 'block';
         document.getElementById('progressContainer').style.display = 'block';
-
-        // Lottie animasyonunu gizle
         document.getElementById('lottie-animation-end').style.display = 'none';
     }
 });

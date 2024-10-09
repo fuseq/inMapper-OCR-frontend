@@ -40,7 +40,7 @@ body, html {
     width: 100%; /* Lottie animasyonu ekranın tamamını yatayda kaplasın */
     max-width: 100%; /* Geniş ekranlarda en fazla 500px genişlik olsun */
     height: auto; /* Yükseklik otomatik ayarlansın */
-    
+    margin-left: 10%;
 }
 
 /* Bilgilendirme yazısı */

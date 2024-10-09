@@ -19,7 +19,7 @@ body, html {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7); /* Yarı transparan arka plan */
+    background-color: rgba(145, 139, 139, 0.7); /* Yarı transparan arka plan */
     display: flex;
     justify-content: center;
     align-items: center;

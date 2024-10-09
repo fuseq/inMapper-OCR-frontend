@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: 'assets/scan.json'
+        path: 'assets/info.json'   
     });
     var animation = lottie.loadAnimation({
         container: document.getElementById('lottie-animation-end'), // Animasyonun yükleneceği div

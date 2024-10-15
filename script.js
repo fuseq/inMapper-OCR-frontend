@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData();
             formData.append('image', blob, 'snapshot.png');
 
-            fetch('http://192.168.1.107:5000/compare-logo', {
+            fetch('http://52.47.60.241:5000/compare-logo', {
                 method: 'POST',
                 body: formData
             })

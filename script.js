@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData();
             formData.append('image', blob, 'snapshot.png');
 
-            fetch('http://52.47.60.241:5000/compare-logo', {
+            fetch('https://inmapperocr.online/compare-logo', {
                 method: 'POST',
                 body: formData
             })

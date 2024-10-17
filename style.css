@@ -124,8 +124,8 @@ body, html {
 #logo-image {
     display: block; /* Görüntüyü başlangıçta göster */
     margin: 0 auto; /* Yatayda ortala */
-    width: 150px; /* Sabit genişlik */
-    height: 150px; /* Sabit yükseklik */
+    width: 320px; /* Sabit genişlik */
+    height: 180px; /* Sabit yükseklik */
 }
 
 #lottie-animation-end {

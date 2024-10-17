@@ -108,15 +108,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.json();
                 })
                 .then(data => {
-                    document.getElementById('logo-image').src = `assets/logo_dataset/${data.best_match}.png`;
-                    resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`; 
+                    if (data.best_match.startsWith('Low Information Image Detected')) {
+                        // Eğer "Low Information Image Detected" ile başlıyorsa sadece mesaj göster
+                        resultText.innerText = `Düşük Bilgili Görüntü Tespit Edildi`;
+                        document.getElementById('logo-image').style.display = 'none'; // Resmi gizle
+                        showError(); // Hata durumunda error mesajı göster
+                    } else {
+                        // Normal eşleşme durumu
+                        document.getElementById('logo-image').src = `assets/logo_dataset/${data.best_match}.png`;
+                        resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`; 
+                        document.getElementById('logo-image').style.display = 'block'; // Resmi göster
+                        hideError(); // Hata yok, error mesajını gizle
+                    }
+                
                     resultModal.style.display = 'block'; 
-                    hideError(); 
-                    stopStabilityCheck(); // Başarı durumunda stability check'i durdur
+                    stopStabilityCheck(); // Durumu kontrol etmeyi durdur
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    resultText.innerText = `Eşleşme Bulunamadı`;
+                    resultText.innerText = `Eşleşme Bulunamadı `;
                     resultDetails.innerText = `Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.`;
                     resultModal.style.display = 'block';
                     showError();

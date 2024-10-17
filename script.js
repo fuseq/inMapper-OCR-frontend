@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: 'assets/info.json'
+        path: 'assets/info.json'   
     });
     var animation = lottie.loadAnimation({
         container: document.getElementById('lottie-animation-end'), // Animasyonun yükleneceği div
@@ -108,21 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     return response.json();
                 })
                 .then(data => {
-                    if (data.best_match.startsWith('Low Information Image Detected')) {
-                        // Eğer "Low Information Image Detected" ile başlıyorsa sadece mesaj göster
-                        resultText.innerText = `${data.best_match === 'Low Information Image Detected: Blurred Image' ? 'Düşük Bilgili Görüntü Tespit Edildi: Bulanık Görüntü' : 'Düşük Bilgili Görüntü Tespit Edildi'}`;
-                        document.getElementById('logo-image').style.display = 'none'; // Resmi gizle
-                        showError(); // Hata durumunda error mesajı göster
-                    } else {
-                        // Normal eşleşme durumu
-                        document.getElementById('logo-image').src = `assets/logo_dataset/${data.best_match}.png`;
-                        resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`;
-                        document.getElementById('logo-image').style.display = 'block'; // Resmi göster
-                        hideError(); // Hata yok, error mesajını gizle
-                    }
-
-                    resultModal.style.display = 'block';
-                    stopStabilityCheck(); // Durumu kontrol etmeyi durdur
+                    document.getElementById('logo-image').src = `assets/logo_dataset/${data.best_match}.png`;
+                    resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`; 
+                    resultModal.style.display = 'block'; 
+                    hideError(); 
+                    stopStabilityCheck(); // Başarı durumunda stability check'i durdur
                 })
                 .catch(error => {
                     console.error('Error:', error);

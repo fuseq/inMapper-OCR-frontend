@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: 'assets/info.json'   
+        path: 'assets/info.json'
     });
     var animation = lottie.loadAnimation({
         container: document.getElementById('lottie-animation-end'), // Animasyonun yükleneceği div
@@ -97,6 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData();
             formData.append('image', blob, 'snapshot.png');
 
+            // Processing ekranını göster
+            showProcessingScreen();
+
             fetch('https://inmapperocr.online/compare-logo', {
                 method: 'POST',
                 body: formData
@@ -109,20 +112,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .then(data => {
                     if (data.best_match.startsWith('Low Information Image Detected')) {
-                        // Eğer "Low Information Image Detected" ile başlıyorsa sadece mesaj göster
                         resultText.innerText = `Düşük Bilgili Görüntü Tespit Edildi`;
-                        document.getElementById('logo-image').style.display = 'none'; // Resmi gizle
-                        showError(); // Hata durumunda error mesajı göster
+                        document.getElementById('logo-image').style.display = 'none';
+                        showError();
                     } else {
-                        // Normal eşleşme durumu
                         document.getElementById('logo-image').src = `assets/logo_dataset/${data.best_match}.png`;
-                        resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`; 
-                        document.getElementById('logo-image').style.display = 'block'; // Resmi göster
-                        hideError(); // Hata yok, error mesajını gizle
+                        resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`;
+                        document.getElementById('logo-image').style.display = 'block';
+                        hideError();
                     }
-                
-                    resultModal.style.display = 'block'; 
-                    stopStabilityCheck(); // Durumu kontrol etmeyi durdur
+
+                    resultModal.style.display = 'block';
+                    stopStabilityCheck();
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -130,7 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     resultDetails.innerText = `Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.`;
                     resultModal.style.display = 'block';
                     showError();
-                    stopStabilityCheck(); // Hata durumunda stability check'i durdur
+                    stopStabilityCheck();
+                })
+                .finally(() => {
+                    // İşlem bittikten sonra processing ekranını gizle
+                    hideProcessingScreen();
                 });
         });
     }
@@ -150,5 +155,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('logo-image').style.display = 'block';
         document.getElementById('progressContainer').style.display = 'block';
         document.getElementById('lottie-animation-end').style.display = 'none';
+    }
+    function showProcessingScreen() {
+        document.getElementById('processing-screen').style.display = 'flex';
+    }
+
+    function hideProcessingScreen() {
+        document.getElementById('processing-screen').style.display = 'none';
     }
 });

@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let stableTimer = null;
     let isStable = false;
-
+    let processingAnimation;
     const lottieAnimation = lottie.loadAnimation({
         container: document.getElementById('lottie-animation'),
         renderer: 'svg',
@@ -162,9 +162,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function showProcessingOverlay() {
         document.getElementById('processing-overlay').style.display = 'flex';
+    
+        // Load and play the Lottie animation
+        processingAnimation = lottie.loadAnimation({
+            container: document.getElementById('lottie-processing-animation'), // the DOM element that will contain the animation
+            renderer: 'svg', // 'svg', 'canvas', 'html'
+            loop: true, // Loop the animation
+            autoplay: true, // Start playing the animation
+            path: 'assets/processing.json' // the path to the animation json
+        });
     }
     
     function hideProcessingOverlay() {
         document.getElementById('processing-overlay').style.display = 'none';
+    
+        // Stop the animation
+        if (processingAnimation) {
+            processingAnimation.stop();
+            processingAnimation.destroy(); // Optional: Clean up the animation instance
+        }
     }
 });

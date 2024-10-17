@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: 'assets/info.json'
+        path: 'assets/info.json'   
     });
     var animation = lottie.loadAnimation({
         container: document.getElementById('lottie-animation-end'), // Animasyonun yükleneceği div
@@ -86,20 +86,20 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
+    
         canvas.toBlob(blob => {
             if (!blob) {
                 console.error('Blob oluşturulamadı.');
                 alert('Blob oluşturulamadı.');
                 return;
             }
-
+    
             const formData = new FormData();
             formData.append('image', blob, 'snapshot.png');
-
-            // Processing ekranını göster
-            showProcessingScreen();
-
+    
+            // Show the processing overlay before sending the request
+            showProcessingOverlay();
+    
             fetch('https://inmapperocr.online/compare-logo', {
                 method: 'POST',
                 body: formData
@@ -112,34 +112,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .then(data => {
                     if (data.best_match.startsWith('Low Information Image Detected')) {
+                        // Eğer "Low Information Image Detected" ile başlıyorsa sadece mesaj göster
                         resultText.innerText = `Düşük Bilgili Görüntü Tespit Edildi`;
-                        document.getElementById('logo-image').style.display = 'none';
-                        showError();
+                        document.getElementById('logo-image').style.display = 'none'; // Resmi gizle
+                        showError(); // Hata durumunda error mesajı göster
                     } else {
+                        // Normal eşleşme durumu
                         document.getElementById('logo-image').src = `assets/logo_dataset/${data.best_match}.png`;
                         resultText.innerText = `Şu an ${data.best_match} yakınlarındasınız`;
-                        document.getElementById('logo-image').style.display = 'block';
-                        hideError();
+                        document.getElementById('logo-image').style.display = 'block'; // Resmi göster
+                        hideError(); // Hata yok, error mesajını gizle
                     }
-
-                    resultModal.style.display = 'block';
-                    stopStabilityCheck();
+                    
+                    resultModal.style.display = 'block'; 
+                    stopStabilityCheck(); // Durumu kontrol etmeyi durdur
+    
+                    // Hide the processing overlay after processing is done
+                    hideProcessingOverlay();
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    resultText.innerText = `Eşleşme Bulunamadı `;
+                    resultText.innerText = `Eşleşme Bulunamadı`;
                     resultDetails.innerText = `Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.`;
                     resultModal.style.display = 'block';
                     showError();
-                    stopStabilityCheck();
-                })
-                .finally(() => {
-                    // İşlem bittikten sonra processing ekranını gizle
-                    hideProcessingScreen();
+                    stopStabilityCheck(); // Hata durumunda stability check'i durdur
+    
+                    // Hide the processing overlay on error
+                    hideProcessingOverlay();
                 });
         });
     }
-
+    
     closeModal.addEventListener('click', () => {
         resultModal.style.display = 'none';
     });
@@ -156,11 +160,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('progressContainer').style.display = 'block';
         document.getElementById('lottie-animation-end').style.display = 'none';
     }
-    function showProcessingScreen() {
-        document.getElementById('processing-screen').style.display = 'flex';
+    function showProcessingOverlay() {
+        document.getElementById('processing-overlay').style.display = 'flex';
     }
-
-    function hideProcessingScreen() {
-        document.getElementById('processing-screen').style.display = 'none';
+    
+    function hideProcessingOverlay() {
+        document.getElementById('processing-overlay').style.display = 'none';
     }
 });

@@ -97,7 +97,6 @@ body, html {
 
 #result-modal {
     width: 90vw;
-    height: 100vw;
     max-width: 600px; /* Maksimum genişlik ayarlanabilir */
     border-radius: 15px;
     overflow: hidden;

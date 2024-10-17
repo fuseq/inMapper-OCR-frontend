@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    resultText.innerText = `Eşleşme Bulunamadı ${data.best_match} - ${data.best_score}`;
+                    resultText.innerText = `Eşleşme Bulunamadı`;
                     resultDetails.innerText = `Tekrar deneyebilir veya geri dönerek seçim yapabilirsiniz.`;
                     resultModal.style.display = 'block';
                     showError();

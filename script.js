@@ -19,6 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
         autoplay: true,
         path: 'assets/info.json'   
     });
+    processingAnimation = lottie.loadAnimation({
+        container: document.getElementById('lottie-processing-animation'), // the DOM element that will contain the animation
+        renderer: 'svg', // 'svg', 'canvas', 'html'
+        loop: true, // Loop the animation
+        autoplay: true, // Start playing the animation
+        path: 'assets/processing.json' // the path to the animation json
+    });
     var animation = lottie.loadAnimation({
         container: document.getElementById('lottie-animation-end'), // Animasyonun yükleneceği div
         renderer: 'svg', // Render türü

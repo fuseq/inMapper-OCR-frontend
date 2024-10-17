@@ -232,6 +232,8 @@ body, html {
 }
 
 #lottie-processing-animation {
-    width: 100px; /* Adjust size as needed */
-    height: 100px; /* Adjust size as needed */
+    width: 50%; /* Lottie animasyonu ekranın tamamını yatayda kaplasın */
+    max-width: 50%; /* Geniş ekranlarda en fazla 500px genişlik olsun */
+    height: auto; /* Yükseklik otomatik ayarlansın */
+    margin-left: 25%;
 }

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultText = document.getElementById('result-text');
     const resultDetails = document.getElementById('result-details');
     const closeModal = document.getElementById('close-modal');
-
+    requestDeviceMotionPermission();
     let stableTimer = null;
     let isStable = false;
     let processingAnimation;
@@ -34,6 +34,22 @@ document.addEventListener('DOMContentLoaded', () => {
         startStabilityCheck();
     }, 3000);
 
+    function requestDeviceMotionPermission() {
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+            DeviceMotionEvent.requestPermission()
+                .then(permissionState => {
+                    if (permissionState === 'granted') {
+                        window.addEventListener('devicemotion', checkStability, true);
+                    } else {
+                        console.warn('DeviceMotion permission not granted');
+                    }
+                })
+                .catch(console.error);
+        } else {
+            // Eski iOS versiyonları için
+            window.addEventListener('devicemotion', checkStability, true);
+        }
+    }
     function startCamera() {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({
